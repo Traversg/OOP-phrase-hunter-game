@@ -1,7 +1,6 @@
-# Create your Game class logic in here.
-
 from phrase import Phrase
 import random
+import string
 
 class Game:
     
@@ -35,7 +34,28 @@ class Game:
             self.guesses.append(user_guess)
             if not self.active_phrase.check_guess(user_guess):
                 self.missed += 1
+        self.game_over()
+        self.play_again()
         
     def get_guess(self):
-        guessed_letter = input('\n\nPlease guess a letter: ')
-        return guessed_letter.lower()
+        guessed_letter = input('\n\nPlease guess a letter: ').lower()
+        if len(guessed_letter) > 1 or guessed_letter not in string.ascii_lowercase: 
+            print('\nError: Please enter a single valid character')
+        return guessed_letter
+        
+    
+    def game_over(self):
+        if self.missed == 5:
+            print('\nSorry. You lost the game.')
+        else:
+            print('\nCongratulations! You Won!')
+            
+    def play_again(self):
+        play_again = input('\nWould you like to play again? (Y/N) ').lower()
+        if play_again == 'y':
+            self.missed = 0
+            self.guesses = [' ']
+            self.active_phrase = self.get_random_phrase()
+            self.start()
+        else:
+            print('\nThanks for playing. Goodbye!')
