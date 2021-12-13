@@ -1,5 +1,3 @@
-# Create your Phrase class logic here.
-
 class Phrase:
     
     def __init__(self, phrase):
@@ -21,6 +19,8 @@ class Phrase:
     def check_complete(self, guesses):
         for letter in self.phrase:
             if not letter in guesses:
-                return False
+                letter_in_guess = False
+                break
             else:
-                return True
+                letter_in_guess = True
+        return letter_in_guess
